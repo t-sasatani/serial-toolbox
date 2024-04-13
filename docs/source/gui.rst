@@ -1,6 +1,6 @@
-Interface_core module
+GUI module
 ====================================
 
-.. automodule:: serial_util.interface_core
+.. automodule:: serial_util.gui
    :members:
    :private-members:
