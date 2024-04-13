@@ -1,7 +1,7 @@
 import threading
 from .connect import PortManager
 
-class SerialReader:
+class SerialInterface:
     """
     Class for continuously reading from a serial port in a separate thread.
 
@@ -65,37 +65,7 @@ class SerialReader:
         if self.terminal == True:
             print(data)
 
-class SerialWriter:
-    """
-    Class for writing data to a serial port in a separate thread.
-
-    Attributes
-    ----------
-    serial_port : serial.Serial
-        Instance of the serial port to write to.
-    thread : threading.Thread
-        Thread used to write data to the serial port.
-    stop_flag : bool
-        Flag used to stop the thread.
-    """
-
-    def __init__(self, serial_port, data):
-        """
-        Parameters
-        ----------
-        serial_port : serial.Serial
-            Instance of the serial port to write to.
-        data : str
-            The data to write to the serial port.
-        """
-        self.serial_port = serial_port
-        self.data = data
-        self.thread = threading.Thread(target=self.write_to_port, args=(self.serial_port, self.data))
-        self.thread.daemon = True
-        self.stop_flag = False
-        self.thread.start()
-
-    def write_to_port(self, serial_port, data):
+    def write_to_port(self, data):
         """
         Continuously writes data to the serial port until stop_flag is set to True.
 
@@ -106,9 +76,7 @@ class SerialWriter:
         data : str
             The data to write to the serial port.
         """
-        while not self.stop_flag:
-            serial_port.write(data.encode())
-        serial_port.close()
+        self.serial_port.write(data.encode())
 
 def serial_monitor_cli():
     """
@@ -129,17 +97,15 @@ def serial_monitor_cli():
     the threads to finish execution before returning from the function.    
     """    
     port = PortManager.select_port()
-    reader = SerialReader(port)
-    writer = SerialWriter(port, "Hello")  # for example, write "Hello"
+    interface = SerialInterface(port)
 
     print("\nSerial port monitor started. Press Ctrl+C to stop.\n")
 
     try:
-        while True: pass
+        while True: 
+            pass
     except KeyboardInterrupt:
         print("\nSerial port monitor stopping...\n")
-        reader.stop_flag = True  
-        writer.stop_flag = True  # stop writer when KeyboardInterrupt is caught
-        reader.thread.join()  
-        writer.thread.join()  # wait for the writer thread to finish
+        interface.stop_flag = True  
+        interface.thread.join()
         print("\nSerial port monitor stopped.\n")
