@@ -11,7 +11,7 @@ import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
 project = 'serial_util'
-copyright = '2024, t-sasatani'
+copyright = '2024, Takuya Sasatani'
 author = 't-sasatani'
 release = '0.1.0'
 

@@ -19,7 +19,7 @@ Contents
 Features
 --------
 - Interactively search and connect to serial ports
-- Interfaces like Arduino IDE's serial monitor and serial plotter
+- Interfaces inspired by Arduino IDE's serial monitor and plotter
 
 Contributes
 ------------

@@ -1,17 +1,23 @@
-Utility function packages for pySerial
+Utility functions for pySerial. This project is still at very early development stages and not guaranteed to work.
 
+# Documentation
+https://serial-util.readthedocs.io
+
+# Usage
 ## Install
 ```shell
 pip install serial_util
 ```
 
 ## Scripts
-Serial monitor application
+
+### Serial port I/O inspired by Arduino IDE
+**Serial monitor application**: Interactively select serial port and monitor values
 ```shell
 serial_monitor
 ```
 
-Serial plotter application
+**Serial plotter application**: Interactively select serial port and plot values
 ```shell
 serial_plotter
 ```
