@@ -1,4 +1,4 @@
-Connect module
+Connection module
 ==================
 
 .. automodule:: serial_util.connect
