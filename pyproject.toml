@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "serial_util"
+version = "0.1.0"
+description = "Utility functions for pySerial"
+authors = ["Takuya Sasatani <33111879+t-sasatani@users.noreply.github.com>"]
+license = "AGPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+sphinx = "^7.2.6"
+sphinx-rtd-theme = "^2.0.0"
+pyserial = "^3.5"
+coloredlogs = "^15.0.1"
+myst-parser = "^2.0.0"
+streamlit = "^1.33.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
