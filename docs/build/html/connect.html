@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Connect module &mdash; serial_util 0.1.0 documentation</title>
+  <title>Connection module &mdash; serial_util 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="GUI module" href="gui.html" />
-    <link rel="prev" title="README" href="readme_link.html" /> 
+    <link rel="prev" title="How to use" href="readme_link.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,8 +45,10 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html">README</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Connect module</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html">How to use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html#scripts">Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Connection module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#serial_util.connect.PortManager"><code class="docutils literal notranslate"><span class="pre">PortManager</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.PortManager._open_serial"><code class="docutils literal notranslate"><span class="pre">PortManager._open_serial()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.PortManager._reset_serial"><code class="docutils literal notranslate"><span class="pre">PortManager._reset_serial()</span></code></a></li>
@@ -57,8 +59,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gui.html">GUI module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_core.html">Interface_core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_init.html">Log_init module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface_core.html">Serial interface core module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_init.html">Logger setup module</a></li>
 </ul>
 
         </div>
@@ -75,7 +77,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Connect module</li>
+      <li class="breadcrumb-item active">Connection module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/connect.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="module-serial_util.connect">
-<span id="connect-module"></span><h1>Connect module<a class="headerlink" href="#module-serial_util.connect" title="Link to this heading"></a></h1>
+<span id="connection-module"></span><h1>Connection module<a class="headerlink" href="#module-serial_util.connect" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="serial_util.connect.PortManager">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_util.connect.</span></span><span class="sig-name descname"><span class="pre">PortManager</span></span><a class="headerlink" href="#serial_util.connect.PortManager" title="Link to this definition"></a></dt>
@@ -98,15 +100,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ser</strong> (<em>Serial</em>) – The serial object.</p></li>
+<li><p><strong>ser</strong> (<em>Serial</em>) – The serial object, which contains the port specifications to open.</p></li>
 <li><p><strong>logger</strong> (<em>logging.Logger</em>) – The logger object.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Opened serial port if successful, else None.</p>
+<dd class="field-even"><p>The serial object representing the opened serial port if successful, else None.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Serial</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SerialException</strong> – If there is an error opening the port.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -114,13 +119,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="serial_util.connect.PortManager._reset_serial">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_reset_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Serial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#serial_util.connect.PortManager._reset_serial" title="Link to this definition"></a></dt>
-<dd><p>Class method to reset the serial port.</p>
+<dd><p>Class method to reset the serial port, closing it if it is open.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ser</strong> (<em>Serial</em>) – The serial object.</p></li>
+<li><p><strong>ser</strong> (<em>Serial</em>) – The serial object representing the port to reset.</p></li>
 <li><p><strong>logger</strong> (<em>logging.Logger</em>) – The logger object.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SerialException</strong> – If there is an error closing the port.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -131,10 +139,10 @@
 <dd><p>Class method to ask user to select a serial device from the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>devices</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – The list of all available device names.</p>
+<dd class="field-odd"><p><strong>devices</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – The list of all available serial port device names.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The name of the selected device.</p>
+<dd class="field-even"><p>The device name of the user-selected device.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
@@ -171,14 +179,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="readme_link.html" class="btn btn-neutral float-left" title="README" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="readme_link.html" class="btn btn-neutral float-left" title="How to use" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="gui.html" class="btn btn-neutral float-right" title="GUI module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, t-sasatani.</p>
+    <p>&#169; Copyright 2024, Takuya Sasatani.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

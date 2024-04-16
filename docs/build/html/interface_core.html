@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interface_core module &mdash; serial_util 0.1.0 documentation</title>
+  <title>Serial interface core module &mdash; serial_util 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Log_init module" href="log_init.html" />
+    <link rel="next" title="Logger setup module" href="log_init.html" />
     <link rel="prev" title="GUI module" href="gui.html" /> 
 </head>
 
@@ -45,31 +45,32 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html">README</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connect.html">Connect module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html">How to use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html#scripts">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connect.html">Connection module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gui.html">GUI module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Interface_core module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#serial_util.interface_core.SerialReader"><code class="docutils literal notranslate"><span class="pre">SerialReader</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialReader.serial_port"><code class="docutils literal notranslate"><span class="pre">SerialReader.serial_port</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialReader.thread"><code class="docutils literal notranslate"><span class="pre">SerialReader.thread</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialReader.stop_flag"><code class="docutils literal notranslate"><span class="pre">SerialReader.stop_flag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialReader.read_from_port"><code class="docutils literal notranslate"><span class="pre">SerialReader.read_from_port()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialReader.process_data"><code class="docutils literal notranslate"><span class="pre">SerialReader.process_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">SerialReader.process_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">SerialReader.read_from_port()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#serial_util.interface_core.SerialWriter"><code class="docutils literal notranslate"><span class="pre">SerialWriter</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialWriter.serial_port"><code class="docutils literal notranslate"><span class="pre">SerialWriter.serial_port</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialWriter.thread"><code class="docutils literal notranslate"><span class="pre">SerialWriter.thread</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialWriter.stop_flag"><code class="docutils literal notranslate"><span class="pre">SerialWriter.stop_flag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.SerialWriter.write_to_port"><code class="docutils literal notranslate"><span class="pre">SerialWriter.write_to_port()</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Serial interface core module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#serial_util.interface_core.serial_interface"><code class="docutils literal notranslate"><span class="pre">serial_interface</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.serial_port"><code class="docutils literal notranslate"><span class="pre">serial_interface.serial_port</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.thread"><code class="docutils literal notranslate"><span class="pre">serial_interface.thread</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.stop_flag"><code class="docutils literal notranslate"><span class="pre">serial_interface.stop_flag</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.data_queue"><code class="docutils literal notranslate"><span class="pre">serial_interface.data_queue</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.terminal"><code class="docutils literal notranslate"><span class="pre">serial_interface.terminal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.data_index"><code class="docutils literal notranslate"><span class="pre">serial_interface.data_index</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.max_queue_size"><code class="docutils literal notranslate"><span class="pre">serial_interface.max_queue_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.read_from_port"><code class="docutils literal notranslate"><span class="pre">serial_interface.read_from_port()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.process_data"><code class="docutils literal notranslate"><span class="pre">serial_interface.process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.interface_core.serial_interface.write_to_port"><code class="docutils literal notranslate"><span class="pre">serial_interface.write_to_port()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">serial_interface.process_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">serial_interface.read_from_port()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">serial_interface.write_to_port()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#serial_util.interface_core.serial_monitor_cli"><code class="docutils literal notranslate"><span class="pre">serial_monitor_cli()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="log_init.html">Log_init module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_init.html">Logger setup module</a></li>
 </ul>
 
         </div>
@@ -86,7 +87,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Interface_core module</li>
+      <li class="breadcrumb-item active">Serial interface core module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/interface_core.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -97,14 +98,14 @@
            <div itemprop="articleBody">
              
   <section id="module-serial_util.interface_core">
-<span id="interface-core-module"></span><h1>Interface_core module<a class="headerlink" href="#module-serial_util.interface_core" title="Link to this heading"></a></h1>
+<span id="serial-interface-core-module"></span><h1>Serial interface core module<a class="headerlink" href="#module-serial_util.interface_core" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialReader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_util.interface_core.</span></span><span class="sig-name descname"><span class="pre">SerialReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.SerialReader" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_util.interface_core.</span></span><span class="sig-name descname"><span class="pre">serial_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_queue_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.serial_interface" title="Link to this definition"></a></dt>
 <dd><p>Class for continuously reading from a serial port in a separate thread.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialReader.serial_port">
-<span class="sig-name descname"><span class="pre">serial_port</span></span><a class="headerlink" href="#serial_util.interface_core.SerialReader.serial_port" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.serial_port">
+<span class="sig-name descname"><span class="pre">serial_port</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.serial_port" title="Link to this definition"></a></dt>
 <dd><p>Instance of the serial port to read from.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -114,8 +115,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialReader.thread">
-<span class="sig-name descname"><span class="pre">thread</span></span><a class="headerlink" href="#serial_util.interface_core.SerialReader.thread" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.thread">
+<span class="sig-name descname"><span class="pre">thread</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.thread" title="Link to this definition"></a></dt>
 <dd><p>Thread used to continuously read from the serial port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -125,8 +126,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialReader.stop_flag">
-<span class="sig-name descname"><span class="pre">stop_flag</span></span><a class="headerlink" href="#serial_util.interface_core.SerialReader.stop_flag" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.stop_flag">
+<span class="sig-name descname"><span class="pre">stop_flag</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.stop_flag" title="Link to this definition"></a></dt>
 <dd><p>Flag used to stop the thread.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -135,22 +136,72 @@
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.data_queue">
+<span class="sig-name descname"><span class="pre">data_queue</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.data_queue" title="Link to this definition"></a></dt>
+<dd><p>Thread-safe queue to store incoming data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>queue.Queue</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.terminal">
+<span class="sig-name descname"><span class="pre">terminal</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.terminal" title="Link to this definition"></a></dt>
+<dd><p>If True, print incoming data to console.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.data_index">
+<span class="sig-name descname"><span class="pre">data_index</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.data_index" title="Link to this definition"></a></dt>
+<dd><p>A counter for received data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.max_queue_size">
+<span class="sig-name descname"><span class="pre">max_queue_size</span></span><a class="headerlink" href="#serial_util.interface_core.serial_interface.max_queue_size" title="Link to this definition"></a></dt>
+<dd><p>Maximum size for the data_queue.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialReader.read_from_port">
-<span class="sig-name descname"><span class="pre">read_from_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.SerialReader.read_from_port" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.read_from_port">
+<span class="sig-name descname"><span class="pre">read_from_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.serial_interface.read_from_port" title="Link to this definition"></a></dt>
 <dd><p>Continuously reads data from the serial port.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialReader.process_data">
-<span class="sig-name descname"><span class="pre">process_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.SerialReader.process_data" title="Link to this definition"></a></dt>
-<dd><p>Processes incoming data (default is print to console).</p>
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.process_data">
+<span class="sig-name descname"><span class="pre">process_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.serial_interface.process_data" title="Link to this definition"></a></dt>
+<dd><p>Processes incoming data and add to the queue.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="serial_util.interface_core.serial_interface.write_to_port">
+<span class="sig-name descname"><span class="pre">write_to_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.serial_interface.write_to_port" title="Link to this definition"></a></dt>
+<dd><p>Writes data to the serial port.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id0">
 <span class="sig-name descname"><span class="pre">process_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
-<dd><p>Processes incoming data. Default is print to console.</p>
+<dd><p>Processes incoming data by adding the data to the data_queue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – The data read from the serial port.</p>
@@ -169,55 +220,13 @@
 </dl>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialWriter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_util.interface_core.</span></span><span class="sig-name descname"><span class="pre">SerialWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.SerialWriter" title="Link to this definition"></a></dt>
-<dd><p>Class for writing data to a serial port in a separate thread.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialWriter.serial_port">
-<span class="sig-name descname"><span class="pre">serial_port</span></span><a class="headerlink" href="#serial_util.interface_core.SerialWriter.serial_port" title="Link to this definition"></a></dt>
-<dd><p>Instance of the serial port to write to.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>serial.Serial</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialWriter.thread">
-<span class="sig-name descname"><span class="pre">thread</span></span><a class="headerlink" href="#serial_util.interface_core.SerialWriter.thread" title="Link to this definition"></a></dt>
-<dd><p>Thread used to write data to the serial port.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>threading.Thread</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialWriter.stop_flag">
-<span class="sig-name descname"><span class="pre">stop_flag</span></span><a class="headerlink" href="#serial_util.interface_core.SerialWriter.stop_flag" title="Link to this definition"></a></dt>
-<dd><p>Flag used to stop the thread.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.interface_core.SerialWriter.write_to_port">
-<span class="sig-name descname"><span class="pre">write_to_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">serial_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.SerialWriter.write_to_port" title="Link to this definition"></a></dt>
-<dd><p>Continuously writes data to the serial port until stop_flag is set to True.</p>
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">write_to_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd><p>Writes data to the serial port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>serial_port</strong> (<em>serial.Serial</em>) – Instance of the serial port to write to.</p></li>
-<li><p><strong>data</strong> (<em>str</em>) – The data to write to the serial port.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – The data to write to the serial port.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -227,16 +236,14 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="serial_util.interface_core.serial_monitor_cli">
 <span class="sig-prename descclassname"><span class="pre">serial_util.interface_core.</span></span><span class="sig-name descname"><span class="pre">serial_monitor_cli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.interface_core.serial_monitor_cli" title="Link to this definition"></a></dt>
-<dd><p>Command line interface for serial port monitor.</p>
-<p>Prompts the user to select a port, then starts the SerialReader and SerialWriter
-on that port. Reading and writing operations can be stopped by a KeyboardInterrupt (Ctrl+C).</p>
-<p>The function creates and manages two threads, one for reading and one for writing.</p>
+<dd><p>Command-line interface for serial port monitor.</p>
+<p>Prompts the user to select a port, then starts the SerialReader on that port.
+Reading operation can be stopped by a KeyboardInterrupt (Ctrl+C).</p>
+<p>The function creates and manages one thread for reading.</p>
 <p>The reading thread continuously reads data from the serial port and prints to the console
 until KeyboardInterrupt is caught.</p>
-<p>The writing thread continuously writes a string “Hello” to the serial port until
-KeyboardInterrupt is caught.</p>
-<p>Both threads are closed properly by setting their stop_flag to True and waiting for
-the threads to finish execution before returning from the function.</p>
+<p>The thread is closed properly by setting its stop_flag to True and waiting for
+the thread to finish execution before returning from the function.</p>
 </dd></dl>
 
 </section>
@@ -246,13 +253,13 @@ the threads to finish execution before returning from the function.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="gui.html" class="btn btn-neutral float-left" title="GUI module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="log_init.html" class="btn btn-neutral float-right" title="Log_init module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="log_init.html" class="btn btn-neutral float-right" title="Logger setup module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, t-sasatani.</p>
+    <p>&#169; Copyright 2024, Takuya Sasatani.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

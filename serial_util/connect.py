@@ -59,12 +59,12 @@ class PortManager:
         Parameters
         ----------
         devices : List[str]
-            The list of all available device names.
+            The list of all available serial port device names.
 
         Returns
         -------
         str
-            The name of the selected device.
+            The device name of the user-selected device.
         """
         for i, device in enumerate(devices):
             print(f"input {i:2d}: {device}")
@@ -89,14 +89,19 @@ class PortManager:
         Parameters
         ----------
         ser : Serial
-            The serial object.
+            The serial object, which contains the port specifications to open.
         logger : logging.Logger
             The logger object.
 
         Returns
         -------
         Serial
-            Opened serial port if successful, else None.
+            The serial object representing the opened serial port if successful, else None.
+
+        Raises
+        ------
+        SerialException
+            If there is an error opening the port.
         """
         try:
             ser.open()
@@ -112,14 +117,19 @@ class PortManager:
                       logger: logging.Logger
                       ) -> None:
         """
-        Class method to reset the serial port.
+        Class method to reset the serial port, closing it if it is open.
 
         Parameters
         ----------
         ser : Serial
-            The serial object.
+            The serial object representing the port to reset.
         logger : logging.Logger
             The logger object.
+
+        Raises
+        ------
+        SerialException
+            If there is an error closing the port.
         """
         try:
             if(ser.isOpen() == True):

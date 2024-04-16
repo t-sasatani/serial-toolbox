@@ -7,13 +7,12 @@ license = "AGPL-3.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 sphinx = "^7.2.6"
 sphinx-rtd-theme = "^2.0.0"
 pyserial = "^3.5"
 coloredlogs = "^15.0.1"
 myst-parser = "^2.0.0"
-streamlit = "^1.33.0"
 matplotlib = "^3.8.4"
 customtkinter = "^5.2.2"
 

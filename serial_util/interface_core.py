@@ -1,7 +1,9 @@
 import threading
+import queue
+import time
 from .connect import PortManager
 
-class SerialInterface:
+class serial_interface:
     """
     Class for continuously reading from a serial port in a separate thread.
 
@@ -13,28 +15,44 @@ class SerialInterface:
         Thread used to continuously read from the serial port.
     stop_flag : bool
         Flag used to stop the thread.
+    data_queue : queue.Queue
+        Thread-safe queue to store incoming data.
+    terminal : bool
+        If True, print incoming data to console.
+    data_index : int
+        A counter for received data.
+    max_queue_size : int
+        Maximum size for the data_queue.
 
     Methods
     -------
     read_from_port(serial_port)
         Continuously reads data from the serial port.
     process_data(data)
-        Processes incoming data (default is print to console).
+        Processes incoming data and add to the queue.
+    write_to_port(data)
+        Writes data to the serial port.
     """
 
-    def __init__(self, serial_port, terminal: bool = True):
+    def __init__(self, serial_port, terminal: bool = True, max_queue_size: int = 100):
         """
         Parameters
         ----------
         serial_port : serial.Serial
             Instance of the serial port to read from.
+        terminal : bool, optional
+            If True, print incoming data to console. Defaults to True.
+        max_queue_size : int, optional
+            Maximum size for data_queue. Older data will be discarded when max is reached. Defaults to 100.
         """
         self.serial_port = serial_port
         self.thread = threading.Thread(target=self.read_from_port, args=(self.serial_port,))
         self.thread.daemon = True
-        self.stop_flag = False  # define a flag
-        self.data_list = []  # Add this line to create the data_list attribute
+        self.stop_flag = False
+        self.data_queue = queue.Queue()
         self.terminal = terminal
+        self.data_index = 0
+        self.max_queue_size = max_queue_size
         self.thread.start()
 
     def read_from_port(self, serial_port):
@@ -46,33 +64,42 @@ class SerialInterface:
         serial_port : serial.Serial
             Instance of the serial port to read from.
         """
-        while not self.stop_flag:  # check flag
+        while not self.stop_flag:
             if serial_port.in_waiting:
                 line = serial_port.readline().decode('utf-8').strip()
                 self.process_data(line)
-        serial_port.close()  # close the port here
+        serial_port.close()
 
     def process_data(self, data):
         """
-        Processes incoming data. Default is print to console.
+        Processes incoming data by adding the data to the data_queue.
 
         Parameters
         ----------
         data : str
             The data read from the serial port.
         """
-        self.data_list.append(float(data))
-        if self.terminal == True:
+        data_dict = {
+            'index': self.data_index, 
+            'time': time.time(), 
+            'data': float(data)
+        }
+
+        if self.data_queue.qsize() >= self.max_queue_size:
+            self.data_queue.get()
+
+        self.data_queue.put(data_dict)
+        self.data_index += 1
+
+        if self.terminal:
             print(data)
 
     def write_to_port(self, data):
         """
-        Continuously writes data to the serial port until stop_flag is set to True.
+        Writes data to the serial port.
 
         Parameters
         ----------
-        serial_port : serial.Serial
-            Instance of the serial port to write to.
         data : str
             The data to write to the serial port.
         """
@@ -80,24 +107,21 @@ class SerialInterface:
 
 def serial_monitor_cli():
     """
-    Command line interface for serial port monitor.
+    Command-line interface for serial port monitor.
     
-    Prompts the user to select a port, then starts the SerialReader and SerialWriter
-    on that port. Reading and writing operations can be stopped by a KeyboardInterrupt (Ctrl+C).
+    Prompts the user to select a port, then starts the SerialReader on that port. 
+    Reading operation can be stopped by a KeyboardInterrupt (Ctrl+C).
     
-    The function creates and manages two threads, one for reading and one for writing.
+    The function creates and manages one thread for reading.
     
     The reading thread continuously reads data from the serial port and prints to the console
     until KeyboardInterrupt is caught.
     
-    The writing thread continuously writes a string "Hello" to the serial port until
-    KeyboardInterrupt is caught.
-    
-    Both threads are closed properly by setting their stop_flag to True and waiting for
-    the threads to finish execution before returning from the function.    
+    The thread is closed properly by setting its stop_flag to True and waiting for
+    the thread to finish execution before returning from the function.    
     """    
     port = PortManager.select_port()
-    interface = SerialInterface(port)
+    interface = serial_interface(port)
 
     print("\nSerial port monitor started. Press Ctrl+C to stop.\n")
 
