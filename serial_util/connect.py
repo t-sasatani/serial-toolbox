@@ -5,7 +5,7 @@ import logging
 
 from .log_init import log_init
 
-class PortManager:
+class port_manager:
     """
     A utility class for serial communication.
     """ 

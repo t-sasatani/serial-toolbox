@@ -49,11 +49,11 @@
 <li class="toctree-l1"><a class="reference internal" href="readme_link.html#install">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readme_link.html#scripts">Scripts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Connection module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#serial_util.connect.PortManager"><code class="docutils literal notranslate"><span class="pre">PortManager</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.PortManager._open_serial"><code class="docutils literal notranslate"><span class="pre">PortManager._open_serial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.PortManager._reset_serial"><code class="docutils literal notranslate"><span class="pre">PortManager._reset_serial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.PortManager._user_serial_select"><code class="docutils literal notranslate"><span class="pre">PortManager._user_serial_select()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.PortManager.select_port"><code class="docutils literal notranslate"><span class="pre">PortManager.select_port()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#serial_util.connect.port_manager"><code class="docutils literal notranslate"><span class="pre">port_manager</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.port_manager._open_serial"><code class="docutils literal notranslate"><span class="pre">port_manager._open_serial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.port_manager._reset_serial"><code class="docutils literal notranslate"><span class="pre">port_manager._reset_serial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.port_manager._user_serial_select"><code class="docutils literal notranslate"><span class="pre">port_manager._user_serial_select()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_util.connect.port_manager.select_port"><code class="docutils literal notranslate"><span class="pre">port_manager.select_port()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -90,12 +90,12 @@
   <section id="module-serial_util.connect">
 <span id="connection-module"></span><h1>Connection module<a class="headerlink" href="#module-serial_util.connect" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="serial_util.connect.PortManager">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_util.connect.</span></span><span class="sig-name descname"><span class="pre">PortManager</span></span><a class="headerlink" href="#serial_util.connect.PortManager" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.connect.port_manager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_util.connect.</span></span><span class="sig-name descname"><span class="pre">port_manager</span></span><a class="headerlink" href="#serial_util.connect.port_manager" title="Link to this definition"></a></dt>
 <dd><p>A utility class for serial communication.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.connect.PortManager._open_serial">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_open_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Serial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Serial</span></span></span><a class="headerlink" href="#serial_util.connect.PortManager._open_serial" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.connect.port_manager._open_serial">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_open_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Serial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Serial</span></span></span><a class="headerlink" href="#serial_util.connect.port_manager._open_serial" title="Link to this definition"></a></dt>
 <dd><p>Class method to open serial port.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -117,8 +117,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.connect.PortManager._reset_serial">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_reset_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Serial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#serial_util.connect.PortManager._reset_serial" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.connect.port_manager._reset_serial">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_reset_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Serial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#serial_util.connect.port_manager._reset_serial" title="Link to this definition"></a></dt>
 <dd><p>Class method to reset the serial port, closing it if it is open.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -134,8 +134,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.connect.PortManager._user_serial_select">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_user_serial_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.connect.PortManager._user_serial_select" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.connect.port_manager._user_serial_select">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_user_serial_select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">devices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_util.connect.port_manager._user_serial_select" title="Link to this definition"></a></dt>
 <dd><p>Class method to ask user to select a serial device from the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -151,8 +151,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="serial_util.connect.PortManager.select_port">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baudrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">9600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Serial</span></span></span><a class="headerlink" href="#serial_util.connect.PortManager.select_port" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="serial_util.connect.port_manager.select_port">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">select_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baudrate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">9600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Logger</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Serial</span></span></span><a class="headerlink" href="#serial_util.connect.port_manager.select_port" title="Link to this definition"></a></dt>
 <dd><p>Class method to select the port for serial communication.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

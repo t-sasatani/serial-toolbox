@@ -1,7 +1,7 @@
 import threading
 import queue
 import time
-from .connect import PortManager
+from .connect import port_manager
 
 class serial_interface:
     """
@@ -82,7 +82,7 @@ class serial_interface:
         data_dict = {
             'index': self.data_index, 
             'time': time.time(), 
-            'data': float(data)
+            'data': data
         }
 
         if self.data_queue.qsize() >= self.max_queue_size:
@@ -103,7 +103,7 @@ class serial_interface:
         data : str
             The data to write to the serial port.
         """
-        self.serial_port.write(data.encode())
+        self.serial_port.write((data+"\n").encode())
 
 def serial_monitor_cli():
     """
@@ -120,7 +120,7 @@ def serial_monitor_cli():
     The thread is closed properly by setting its stop_flag to True and waiting for
     the thread to finish execution before returning from the function.    
     """    
-    port = PortManager.select_port()
+    port = port_manager.select_port()
     interface = serial_interface(port)
 
     print("\nSerial port monitor started. Press Ctrl+C to stop.\n")

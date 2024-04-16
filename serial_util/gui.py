@@ -2,7 +2,7 @@ import customtkinter as ctk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from .interface_core import serial_interface
-from .connect import PortManager
+from .connect import port_manager
 
 class Application(ctk.CTk):
     """
@@ -78,7 +78,7 @@ class Application(ctk.CTk):
         This function is connected to the 'Send' button and the 'Return' key while typing into the data_entry field.
         """
         command = self.entry_text.get()
-        self.data_text.insert("end", "Sent: " + command + "\n")
+        self.data_text.insert(0., "CMD: " + command + "\n")
         self.interface.write_to_port(command)
         self.entry_text.set("")
 
@@ -95,10 +95,13 @@ class Application(ctk.CTk):
 
             for _ in range(queue_size):
                 data_dict = self.interface.data_queue.get()
-                self.data_list.append(data_dict['data'])  # Store individual data-points
-                
-                # Once data is processed, requeue it for maintainance
-                self.interface.data_queue.put(data_dict)
+                if data_dict['data'].isdigit():
+                    self.data_list.append(float(data_dict['data']))  # Store individual data-points
+                    # Once data is processed, requeue it for maintainance
+                    self.interface.data_queue.put(data_dict)
+                elif data_dict['data'].startswith('ACK:'):
+                    self.data_text.insert(0., data_dict['data'] + "\n")
+
             
             # Outside of the loop, plot the entire data_list
             self.plot.plot(self.data_list)
@@ -113,6 +116,6 @@ def serial_monitor_gui():
     This is the main entry point of the application that creates an instance of the Application class and executes the main loop.
     """
 
-    target_serial_interface = serial_interface(PortManager.select_port(), terminal=False, max_queue_size=200)
+    target_serial_interface = serial_interface(port_manager.select_port(), terminal=False, max_queue_size=200)
     app = Application(target_serial_interface)
     app.mainloop()
