@@ -1,4 +1,4 @@
-Interface_core module
+Serial interface core module
 ====================================
 
 .. automodule:: serial_util.interface_core
