@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import queue
 from .interface_core import serial_interface
 from .connect import port_manager
 
@@ -68,6 +69,7 @@ class Application(ctk.CTk):
         self.right_frame.columnconfigure(0, weight=1)
 
         self.data_list = []
+        self.plot_queue = queue.Queue()
 
         self.update_plot()
 
@@ -88,20 +90,23 @@ class Application(ctk.CTk):
         This function re-plots the data from the serial interface, then schedules itself to be called again after 100 ms.
         This function is automatically triggered in the initialization of the Application class, implementing a regular update of the plot.
         """
-        queue_size = self.interface.data_queue.qsize()
-        if queue_size > 0:
+        data_queue_size = self.interface.data_queue.qsize()
+        if data_queue_size > 0:
             self.plot.clear()
             self.data_list = []  # Clear data_list in every iteration of update_plot
 
-            for _ in range(queue_size):
+            for _ in range(data_queue_size):
                 data_dict = self.interface.data_queue.get()
                 if data_dict['data'].isdigit():
-                    self.data_list.append(float(data_dict['data']))  # Store individual data-points
-                    # Once data is processed, requeue it for maintainance
-                    self.interface.data_queue.put(data_dict)
+                    self.plot_queue.put(data_dict) # pass down numbers to plot_queue
                 elif data_dict['data'].startswith('ACK:'):
                     self.data_text.insert(0., data_dict['data'] + "\n")
-
+            
+            plot_queue_size = self.plot_queue.qsize()
+            for _ in range(plot_queue_size):
+                data_dict = self.plot_queue.get()
+                self.data_list.append(float(data_dict['data']))  # Store individual data-points
+                self.plot_queue.put(data_dict)
             
             # Outside of the loop, plot the entire data_list
             self.plot.plot(self.data_list)
@@ -116,6 +121,6 @@ def serial_monitor_gui():
     This is the main entry point of the application that creates an instance of the Application class and executes the main loop.
     """
 
-    target_serial_interface = serial_interface(port_manager.select_port(), terminal=False, max_queue_size=200)
+    target_serial_interface = serial_interface(port_manager.select_port(interactive=True), terminal=False, max_queue_size=200)
     app = Application(target_serial_interface)
     app.mainloop()

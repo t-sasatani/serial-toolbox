@@ -105,7 +105,7 @@ class serial_interface:
         """
         self.serial_port.write((data+"\n").encode())
 
-def serial_monitor_cli():
+def serial_monitor_cli(interactive: bool = True):
     """
     Command-line interface for serial port monitor.
     
@@ -120,7 +120,7 @@ def serial_monitor_cli():
     The thread is closed properly by setting its stop_flag to True and waiting for
     the thread to finish execution before returning from the function.    
     """    
-    port = port_manager.select_port()
+    port = port_manager.select_port(interactive)
     interface = serial_interface(port)
 
     print("\nSerial port monitor started. Press Ctrl+C to stop.\n")
