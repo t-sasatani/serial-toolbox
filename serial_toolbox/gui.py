@@ -120,7 +120,9 @@ def serial_monitor_gui():
     Start and run the customtkinter application. 
     This is the main entry point of the application that creates an instance of the Application class and executes the main loop.
     """
-
-    target_serial_interface = serial_interface(port_manager.select_port(interactive=True), terminal=False, max_queue_size=200)
+    port_interface = port_manager.select_port(interactive=True, portname="serial monitor")
+    if not port_interface:
+        return
+    target_serial_interface = serial_interface(port_interface=port_interface, terminal=False, max_queue_size=200)
     app = Application(target_serial_interface)
     app.mainloop()

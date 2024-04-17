@@ -64,10 +64,14 @@ class serial_interface:
         serial_port : serial.Serial
             Instance of the serial port to read from.
         """
-        while not self.stop_flag:
-            if serial_port.in_waiting:
-                line = serial_port.readline().decode('utf-8').strip()
-                self.process_data(line)
+        try:
+            while not self.stop_flag:
+                if serial_port.in_waiting:
+                    line = serial_port.readline().decode('utf-8').strip()
+                    self.process_data(line)
+        except Exception as e:
+            print(e)
+            return
         serial_port.close()
 
     def process_data(self, data):
@@ -120,8 +124,11 @@ def serial_monitor_cli(interactive: bool = True):
     The thread is closed properly by setting its stop_flag to True and waiting for
     the thread to finish execution before returning from the function.    
     """    
-    port = port_manager.select_port(interactive)
+    port = port_manager.select_port(interactive, portname="serial monitor")
+    if not port:
+        return
     interface = serial_interface(port)
+    
 
     print("\nSerial port monitor started. Press Ctrl+C to stop.\n")
 

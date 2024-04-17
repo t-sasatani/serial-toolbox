@@ -11,7 +11,7 @@ class port_manager:
     """
     
     @classmethod
-    def select_port(cls, interactive: bool=False, baudrate: int=115200, timeout: float=0.1,
+    def select_port(cls, interactive: bool=False, portname: str=None, baudrate: int=115200, timeout: float=0.1,
                     logger: logging.Logger=None) -> serial.Serial:
         """
         Class method for selecting the port for serial communication.
@@ -20,6 +20,8 @@ class port_manager:
         ----------
         interactive : bool, optional
             User interactive mode switch, default is False
+        portname : str, optional
+            User identifier for port, default is None
         baudrate : int, optional
             The baudrate, default is 9600
         timeout : float, optional
@@ -37,7 +39,11 @@ class port_manager:
         
         ser = serial.Serial()
         
-        print("Setup serial. [] is default value.")
+        if portname:
+            print("Setup port (" + portname + "). [] is default value.")
+        else:
+            print("Setup port. [] is default value.")
+
         if interactive:
             baudrate_input = input("baudrate [115200] >> ")
             if baudrate_input.strip():
