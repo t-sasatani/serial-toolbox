@@ -1,6 +1,6 @@
 Connection module
 ==================
 
-.. automodule:: serial_util.connect
+.. automodule:: serial_toolbox.connect
    :members:
    :private-members:

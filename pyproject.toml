@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "serial_util"
+name = "serial_toolbox"
 version = "0.1.0"
 description = "Utility functions for pySerial"
 authors = ["Takuya Sasatani <33111879+t-sasatani@users.noreply.github.com>"]
@@ -21,5 +21,5 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-serial_monitor = "serial_util.interface_core:serial_monitor_cli"
-serial_plotter = "serial_util.gui:serial_monitor_gui"
+serial_monitor = "serial_toolbox.interface_core:serial_monitor_cli"
+serial_plotter = "serial_toolbox.gui:serial_monitor_gui"

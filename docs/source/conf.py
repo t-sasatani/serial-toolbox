@@ -10,7 +10,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../..'))
 
-project = 'serial_util'
+project = 'serial_toolbox'
 copyright = '2024, Takuya Sasatani'
 author = 't-sasatani'
 release = '0.1.0'

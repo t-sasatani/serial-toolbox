@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-serial_util package documentation: 
+serial_toolbox package documentation: 
 ======================================
 
 Contents
@@ -24,8 +24,8 @@ Features
 Contributes
 ------------
 
-- Issue Tracker: https://github.com/t-sasatani/serial-util/issues
-- Source Code: https://github.com/t-sasatani/serial-util
+- Issue Tracker: https://github.com/t-sasatani/serial-toolbox/issues
+- Source Code: https://github.com/t-sasatani/serial-toolbox
 
 License
 ------------

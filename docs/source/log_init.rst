@@ -1,7 +1,7 @@
 Logger setup module 
 ==============================
 
-.. automodule:: serial_util.log_init
+.. automodule:: serial_toolbox.log_init
    :members:
    :undoc-members:
    :show-inheritance:

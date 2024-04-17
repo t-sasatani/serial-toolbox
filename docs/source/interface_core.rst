@@ -1,6 +1,6 @@
 Serial interface core module
 ====================================
 
-.. automodule:: serial_util.interface_core
+.. automodule:: serial_toolbox.interface_core
    :members:
    :private-members:

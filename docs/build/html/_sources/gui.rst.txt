@@ -1,6 +1,6 @@
 GUI module
 ====================================
 
-.. automodule:: serial_util.gui
+.. automodule:: serial_toolbox.gui
    :members:
    :private-members:
