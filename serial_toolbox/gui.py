@@ -99,7 +99,7 @@ class Application(ctk.CTk):
                 data_dict = self.interface.data_queue.get()
                 if data_dict['data'].isdigit():
                     self.plot_queue.put(data_dict) # pass down numbers to plot_queue
-                elif data_dict['data'].startswith('ACK:'):
+                else:
                     self.data_text.insert(0., data_dict['data'] + "\n")
             
             plot_queue_size = self.plot_queue.qsize()
@@ -123,6 +123,6 @@ def serial_monitor_gui():
     port_interface = port_manager.select_port(interactive=True, portname="serial monitor")
     if not port_interface:
         return
-    target_serial_interface = serial_interface(port_interface=port_interface, terminal=False, max_queue_size=200)
+    target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=200)
     app = Application(target_serial_interface)
     app.mainloop()
