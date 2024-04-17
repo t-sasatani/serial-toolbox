@@ -78,9 +78,9 @@ class port_manager:
             The selected serial port.
         """
         for i, device in enumerate(devices):
-            print(f"index\t|\tdevice")
+            print(f"index\t|  device")
             print("----------------------")
-            print(f"{i:2d}\t|\t{device}")
+            print(f"{i:2d}\t|  {device}")
 
         
         while True:
