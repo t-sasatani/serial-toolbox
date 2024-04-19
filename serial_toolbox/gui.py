@@ -49,7 +49,7 @@ class Application(ctk.CTk):
         self.entry_text = ctk.StringVar()
         self.data_entry = ctk.CTkEntry(self.left_frame, textvariable=self.entry_text)
         self.data_entry.pack(side=ctk.TOP, fill=ctk.X)
-        self.data_entry.bind('<Return>', lambda event: self.send_command(format=format))
+        self.data_entry.bind('<Return>', lambda event: self.send_command())
 
         self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command)
         self.send_button.pack(side=ctk.TOP, fill=ctk.X)
@@ -71,9 +71,11 @@ class Application(ctk.CTk):
         self.data_list = []
         self.plot_queue = queue.Queue()
 
+        self.format = format
+
         self.update_plot()
 
-    def send_command(self, format: str = 'STR'):
+    def send_command(self):
         """
         Fetch the command, send it via the serial interface and update the textbox.
         Clear the command entry field after sending the command.
@@ -84,7 +86,7 @@ class Application(ctk.CTk):
             self.data_text.insert(0., "CMD: " + command + "\n")
         elif format == 'BIN':
             self.data_text.insert(0., "CMD: 0x" + command + "\n")
-        self.interface.write_to_port(command, format=format)
+        self.interface.write_to_port(command, format=self.format)
         self.entry_text.set("")
 
     def update_plot(self):
@@ -103,7 +105,9 @@ class Application(ctk.CTk):
                 if data_dict['data'].isdigit():
                     self.plot_queue.put(data_dict) # pass down numbers to plot_queue
                 else:
-                    self.data_text.insert(0., data_dict['data'] + "\n")
+                    if self.format == 'STR':
+                        self.data_text.insert(0., data_dict['data'] + "\n")
+                        EL
             
             plot_queue_size = self.plot_queue.qsize()
             for _ in range(plot_queue_size):
