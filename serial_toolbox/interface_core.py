@@ -98,7 +98,7 @@ class serial_interface:
         if self.terminal:
             print(data)
 
-    def write_to_port(self, data):
+    def write_to_port(self, data_str, format: str = 'STR'):
         """
         Writes data to the serial port.
 
@@ -107,7 +107,12 @@ class serial_interface:
         data : str
             The data to write to the serial port.
         """
-        self.serial_port.write((data+"\n").encode())
+        if format == 'STR':
+            self.serial_port.write((data_str+"\n").encode())
+            return
+        elif format == 'BIN':
+            data_bin = bytes.fromhex(data_str)
+            self.serial_port.write(data_bin)
 
 def serial_monitor_cli(interactive: bool = True):
     """

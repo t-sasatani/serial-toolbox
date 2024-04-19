@@ -33,7 +33,7 @@ class Application(ctk.CTk):
         The canvas on which the figure is drawn. This is a tkinter-compatible canvas that the Figure object draws onto.
     """
 
-    def __init__(self, interface):
+    def __init__(self, interface, format):
         """Initialize the Application."""
         super().__init__()
         self.interface = interface
@@ -49,9 +49,9 @@ class Application(ctk.CTk):
         self.entry_text = ctk.StringVar()
         self.data_entry = ctk.CTkEntry(self.left_frame, textvariable=self.entry_text)
         self.data_entry.pack(side=ctk.TOP, fill=ctk.X)
-        self.data_entry.bind('<Return>', lambda event: self.send_command())
+        self.data_entry.bind('<Return>', lambda event: self.send_command(format=format))
 
-        self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command)
+        self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command(format=format))
         self.send_button.pack(side=ctk.TOP, fill=ctk.X)
 
         self.data_text = ctk.CTkTextbox(self.left_frame, height=10, width=50)
@@ -73,7 +73,7 @@ class Application(ctk.CTk):
 
         self.update_plot()
 
-    def send_command(self):
+    def send_command(self, format: str = 'STR'):
         """
         Fetch the command, send it via the serial interface and update the textbox.
         Clear the command entry field after sending the command.
@@ -81,7 +81,7 @@ class Application(ctk.CTk):
         """
         command = self.entry_text.get()
         self.data_text.insert(0., "CMD: " + command + "\n")
-        self.interface.write_to_port(command)
+        self.interface.write_to_port(command, format=format)
         self.entry_text.set("")
 
     def update_plot(self):
@@ -124,5 +124,9 @@ def serial_monitor_gui():
     if not port_interface:
         return
     target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=200)
-    app = Application(target_serial_interface)
+    format = 'STR'
+    format_input = input("format ('STR', 'BIN') ['STR'] >> ")
+    if format_input.strip():
+        format = format_input
+    app = Application(target_serial_interface, format=format)
     app.mainloop()
