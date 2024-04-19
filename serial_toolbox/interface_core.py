@@ -34,7 +34,7 @@ class serial_interface:
         Writes data to the serial port.
     """
 
-    def __init__(self, serial_port, terminal: bool = True, max_queue_size: int = 100):
+    def __init__(self, serial_port, terminal: bool = True, max_queue_size: int = 100, format: str = 'STR'):
         """
         Parameters
         ----------
@@ -44,6 +44,8 @@ class serial_interface:
             If True, print incoming data to console. Defaults to True.
         max_queue_size : int, optional
             Maximum size for data_queue. Older data will be discarded when max is reached. Defaults to 100.
+        format : str, optional
+            TBD
         """
         self.serial_port = serial_port
         self.thread = threading.Thread(target=self.read_from_port, args=(self.serial_port,))
@@ -53,6 +55,7 @@ class serial_interface:
         self.terminal = terminal
         self.data_index = 0
         self.max_queue_size = max_queue_size
+        self.format = format
         self.thread.start()
 
     def read_from_port(self, serial_port):
@@ -67,8 +70,12 @@ class serial_interface:
         try:
             while not self.stop_flag:
                 if serial_port.in_waiting:
-                    line = serial_port.readline().decode('utf-8').strip()
-                    self.process_data(line)
+                    if self.format == 'STR':
+                        line = serial_port.readline().decode('utf-8').strip()
+                        self.process_data(line)
+                    elif self.format == 'BIN':
+                        raw_data = serial_port.readline()
+                        self.process_data(raw_data)
         except Exception as e:
             print(e)
             return
@@ -98,7 +105,7 @@ class serial_interface:
         if self.terminal:
             print(data)
 
-    def write_to_port(self, data_str, format: str = 'STR'):
+    def write_to_port(self, data_str):
         """
         Writes data to the serial port.
 
@@ -107,10 +114,10 @@ class serial_interface:
         data : str
             The data to write to the serial port.
         """
-        if format == 'STR':
+        if self.format == 'STR':
             self.serial_port.write((data_str+"\n").encode())
             return
-        elif format == 'BIN':
+        elif self.format == 'BIN':
             data_bin = bytes.fromhex(data_str)
             self.serial_port.write(data_bin)
 
@@ -132,8 +139,14 @@ def serial_monitor_cli(interactive: bool = True):
     port = port_manager.select_port(interactive, portname="serial monitor")
     if not port:
         return
-    interface = serial_interface(port)
     
+    format_input = input("format ('STR', 'BIN') ['STR'] >> ")
+    if format_input.strip():
+        format = format_input
+    else:
+        format = 'STR'
+    
+    interface = serial_interface(port, format)
 
     print("\nSerial port monitor started. Press Ctrl+C to stop.\n")
 
