@@ -51,7 +51,7 @@ class Application(ctk.CTk):
         self.data_entry.pack(side=ctk.TOP, fill=ctk.X)
         self.data_entry.bind('<Return>', lambda event: self.send_command(format=format))
 
-        self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command(format=format))
+        self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command)
         self.send_button.pack(side=ctk.TOP, fill=ctk.X)
 
         self.data_text = ctk.CTkTextbox(self.left_frame, height=10, width=50)
@@ -80,7 +80,10 @@ class Application(ctk.CTk):
         This function is connected to the 'Send' button and the 'Return' key while typing into the data_entry field.
         """
         command = self.entry_text.get()
-        self.data_text.insert(0., "CMD: " + command + "\n")
+        if format == 'STR':        
+            self.data_text.insert(0., "CMD: " + command + "\n")
+        elif format == 'BIN':
+            self.data_text.insert(0., "CMD: 0x" + command + "\n")
         self.interface.write_to_port(command, format=format)
         self.entry_text.set("")
 
