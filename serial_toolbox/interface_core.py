@@ -48,7 +48,7 @@ class serial_interface:
             TBD
         """
         self.serial_port = serial_port
-        self.thread = threading.Thread(target=self.read_from_port, args=(self.serial_port,))
+        self.thread = threading.Thread(target=self.read_from_port)
         self.thread.daemon = True
         self.stop_flag = False
         self.data_queue = queue.Queue()
@@ -58,7 +58,7 @@ class serial_interface:
         self.format = format
         self.thread.start()
 
-    def read_from_port(self, serial_port):
+    def read_from_port(self):
         """
         Continuously reads data from the serial port until stop_flag is set to True.
 
@@ -69,18 +69,30 @@ class serial_interface:
         """
         try:
             while not self.stop_flag:
-                if serial_port.in_waiting:
+                if self.serial_port.in_waiting:
                     if self.format == 'STR':
-                        line = serial_port.readline().decode('utf-8').strip()
+                        line = self.serial_port.readline().decode('utf-8').strip()
                         self.process_data(line)
                     elif self.format == 'HEX':
-                        raw_data = serial_port.readline()
+                        raw_data = self.serial_port.readline()
                         self.process_data(raw_data)
         except Exception as e:
             print(e)
             return
-        serial_port.close()
+        self.serial_port.close()
 
+    def print_queue(self):
+        for _ in range(self.data_queue.qsize()):
+            serial_data = self.data_queue.get()
+
+            if self.format == 'HEX':
+                print(str(serial_data['index']) + ': ' + str(serial_data['data'].hex()))
+
+            if self.format == 'STR':
+                print(str(serial_data['index']) + ': ' + serial_data['data'])
+        
+            self.data_queue.put(serial_data)
+            
     def process_data(self, data):
         """
         Processes incoming data by adding the data to the data_queue.
