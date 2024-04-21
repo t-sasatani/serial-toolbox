@@ -54,7 +54,7 @@ class Application(ctk.CTk):
         self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command)
         self.send_button.pack(side=ctk.TOP, fill=ctk.X)
 
-        self.data_text = ctk.CTkTextbox(self.left_frame, height=10, width=100)
+        self.data_text = ctk.CTkTextbox(self.left_frame, height=10, width=50)
         self.data_text.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
 
         self.plotting = plotting
@@ -82,7 +82,7 @@ class Application(ctk.CTk):
         command = self.entry_text.get()
         if self.interface.format == 'STR':        
             self.data_text.insert(0., "TXD: " + command + "\n")
-        elif self.interface.format == 'BIN':
+        elif self.interface.format == 'HEX':
             try:
                 _ = bytes.fromhex(command)
             except ValueError:
@@ -108,7 +108,7 @@ class Application(ctk.CTk):
             for _ in range(data_queue_size):
                 data_dict = self.interface.data_queue.get()
 
-                if self.interface.format == 'BIN':
+                if self.interface.format == 'HEX':
                     self.data_text.insert(0., "RXD: 0x" + data_dict['data'].hex() + "\n")
                 elif self.interface.format == 'STR':
                     data_dict['data'] = data_dict['data'].decode('utf-8').strip()
@@ -116,7 +116,7 @@ class Application(ctk.CTk):
                         self.plot_queue.put(data_dict) # pass down numbers to plot_queue
                     else:
                         self.data_text.insert(0., data_dict['data'] + "\n")
-            
+
             plot_queue_size = self.plot_queue.qsize()
             for _ in range(plot_queue_size):
                 data_dict = self.plot_queue.get()
@@ -136,7 +136,7 @@ def serial_monitor_gui():
     This is the main entry point of the application that creates an instance of the Application class and executes the main loop.
     """
     port_interface = port_manager.select_port(interactive=True, portname="serial monitor")
-    format_input = input("format ('STR', 'BIN') ['STR'] >> ")
+    format_input = input("format ('STR', 'HEX') ['STR'] >> ")
     if format_input.strip():
         format = format_input
     else:

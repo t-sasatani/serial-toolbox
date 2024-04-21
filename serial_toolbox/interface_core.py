@@ -73,7 +73,7 @@ class serial_interface:
                     if self.format == 'STR':
                         line = serial_port.readline().decode('utf-8').strip()
                         self.process_data(line)
-                    elif self.format == 'BIN':
+                    elif self.format == 'HEX':
                         raw_data = serial_port.readline()
                         self.process_data(raw_data)
         except Exception as e:
@@ -117,7 +117,7 @@ class serial_interface:
         if self.format == 'STR':
             self.serial_port.write((data_str+"\n").encode())
             return
-        elif self.format == 'BIN':
+        elif self.format == 'HEX':
             try:
                 data_bin = bytes.fromhex(data_str)
                 self.serial_port.write(data_bin)
@@ -143,7 +143,7 @@ def serial_monitor_cli(interactive: bool = True):
     if not port:
         return
     
-    format_input = input("format ('STR', 'BIN') ['STR'] >> ")
+    format_input = input("format ('STR', 'HEX') ['STR'] >> ")
     if format_input.strip():
         format = format_input
     else:
