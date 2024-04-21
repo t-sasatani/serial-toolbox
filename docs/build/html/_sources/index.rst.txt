@@ -30,4 +30,4 @@ Contributes
 License
 ------------
 
-The project is licensed under AGPL-3.0 license.
+The project is licensed under Apache License, Version 2.0.
