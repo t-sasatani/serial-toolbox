@@ -48,7 +48,7 @@ class serial_interface:
             TBD
         """
         self.serial_port = serial_port
-        self.thread = threading.Thread(target=self.read_from_port, args=(self.serial_port,))
+        self.thread = threading.Thread(target=self.read_from_port)
         self.thread.daemon = True
         self.stop_flag = False
         self.data_queue = queue.Queue()
