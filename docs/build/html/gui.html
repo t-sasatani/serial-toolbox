@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GUI module &mdash; serial_toolbox 0.1.0 documentation</title>
+  <title>GUI module &mdash; serial_toolbox 0.1.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/documentation_options.js?v=92734c54"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -61,8 +61,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#serial_toolbox.gui.Application.figure"><code class="docutils literal notranslate"><span class="pre">Application.figure</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#serial_toolbox.gui.Application.plot"><code class="docutils literal notranslate"><span class="pre">Application.plot</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#serial_toolbox.gui.Application.canvas"><code class="docutils literal notranslate"><span class="pre">Application.canvas</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serial_toolbox.gui.Application.rxd_update"><code class="docutils literal notranslate"><span class="pre">Application.rxd_update()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#serial_toolbox.gui.Application.send_command"><code class="docutils literal notranslate"><span class="pre">Application.send_command()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#serial_toolbox.gui.Application.update_plot"><code class="docutils literal notranslate"><span class="pre">Application.update_plot()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#serial_toolbox.gui.serial_monitor_gui"><code class="docutils literal notranslate"><span class="pre">serial_monitor_gui()</span></code></a></li>
@@ -100,7 +100,7 @@
 <span id="gui-module"></span><h1>GUI module<a class="headerlink" href="#module-serial_toolbox.gui" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="serial_toolbox.gui.Application">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_toolbox.gui.</span></span><span class="sig-name descname"><span class="pre">Application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_toolbox.gui.Application" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">serial_toolbox.gui.</span></span><span class="sig-name descname"><span class="pre">Application</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotting</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#serial_toolbox.gui.Application" title="Link to this definition"></a></dt>
 <dd><p>A Example tkinter application for serial communication.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="serial_toolbox.gui.Application.interface">
@@ -213,19 +213,19 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="serial_toolbox.gui.Application.rxd_update">
+<span class="sig-name descname"><span class="pre">rxd_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#serial_toolbox.gui.Application.rxd_update" title="Link to this definition"></a></dt>
+<dd><p>Update the plot with the data from the interface.
+This function re-plots the data from the serial interface, then schedules itself to be called again after 100 ms.
+This function is automatically triggered in the initialization of the Application class, implementing a regular update of the plot.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="serial_toolbox.gui.Application.send_command">
 <span class="sig-name descname"><span class="pre">send_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#serial_toolbox.gui.Application.send_command" title="Link to this definition"></a></dt>
 <dd><p>Fetch the command, send it via the serial interface and update the textbox.
 Clear the command entry field after sending the command.
 This function is connected to the ‘Send’ button and the ‘Return’ key while typing into the data_entry field.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="serial_toolbox.gui.Application.update_plot">
-<span class="sig-name descname"><span class="pre">update_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#serial_toolbox.gui.Application.update_plot" title="Link to this definition"></a></dt>
-<dd><p>Update the plot with the data from the interface.
-This function re-plots the data from the serial interface, then schedules itself to be called again after 100 ms.
-This function is automatically triggered in the initialization of the Application class, implementing a regular update of the plot.</p>
 </dd></dl>
 
 </dd></dl>
