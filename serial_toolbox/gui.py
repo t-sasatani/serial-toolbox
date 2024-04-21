@@ -33,7 +33,7 @@ class Application(ctk.CTk):
         The canvas on which the figure is drawn. This is a tkinter-compatible canvas that the Figure object draws onto.
     """
 
-    def __init__(self, interface):
+    def __init__(self, interface, plotting : bool = True):
         """Initialize the Application."""
         super().__init__()
         self.interface = interface
@@ -54,24 +54,24 @@ class Application(ctk.CTk):
         self.send_button = ctk.CTkButton(self.left_frame, text="Send", command=self.send_command)
         self.send_button.pack(side=ctk.TOP, fill=ctk.X)
 
-        self.data_text = ctk.CTkTextbox(self.left_frame, height=10, width=50)
+        self.data_text = ctk.CTkTextbox(self.left_frame, height=10, width=100)
         self.data_text.pack(side=ctk.TOP, fill=ctk.BOTH, expand=True)
+
+        self.plotting = plotting
 
         self.figure = Figure(figsize=(5, 4), dpi=100)
         self.plot = self.figure.add_subplot(1, 1, 1)
 
         self.canvas = FigureCanvasTkAgg(self.figure, self.right_frame)
         self.canvas.get_tk_widget().pack(fill=ctk.BOTH, expand=True)
-        
+        self.data_list = []
+        self.plot_queue = queue.Queue()
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.right_frame.rowconfigure(0, weight=1)
         self.right_frame.columnconfigure(0, weight=1)
 
-        self.data_list = []
-        self.plot_queue = queue.Queue()
-
-        self.update_plot()
+        self.rxd_update()
 
     def send_command(self):
         """
@@ -83,11 +83,18 @@ class Application(ctk.CTk):
         if self.interface.format == 'STR':        
             self.data_text.insert(0., "TXD: " + command + "\n")
         elif self.interface.format == 'BIN':
+            try:
+                _ = bytes.fromhex(command)
+            except ValueError:
+                print('\'' + command + '\' includes non-hexadecimal number')
+                self.data_text.insert(0., 'ERR: non-hex cmd')
+                self.entry_text.set("")
+                return
             self.data_text.insert(0., "TXD: 0x" + command + "\n")
         self.interface.write_to_port(command)
         self.entry_text.set("")
 
-    def update_plot(self):
+    def rxd_update(self):
         """
         Update the plot with the data from the interface. 
         This function re-plots the data from the serial interface, then schedules itself to be called again after 100 ms.
@@ -105,7 +112,7 @@ class Application(ctk.CTk):
                     self.data_text.insert(0., "RXD: 0x" + data_dict['data'].hex() + "\n")
                 elif self.interface.format == 'STR':
                     data_dict['data'] = data_dict['data'].decode('utf-8').strip()
-                    if data_dict['data'].decode('utf-8').strip().isdigit():
+                    if data_dict['data'].decode('utf-8').strip().isdigit() and self.plotting == True:
                         self.plot_queue.put(data_dict) # pass down numbers to plot_queue
                     else:
                         self.data_text.insert(0., data_dict['data'] + "\n")
@@ -120,7 +127,7 @@ class Application(ctk.CTk):
             self.plot.plot(self.data_list)
             self.canvas.draw()
 
-        self.after(100, self.update_plot)
+        self.after(100, self.rxd_update)
         
 
 def serial_monitor_gui():
@@ -139,5 +146,5 @@ def serial_monitor_gui():
         return
     
     target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=200, format=format)
-    app = Application(target_serial_interface)
+    app = Application(target_serial_interface, plotting = (format == 'STR'))
     app.mainloop()

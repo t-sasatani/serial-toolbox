@@ -118,8 +118,11 @@ class serial_interface:
             self.serial_port.write((data_str+"\n").encode())
             return
         elif self.format == 'BIN':
-            data_bin = bytes.fromhex(data_str)
-            self.serial_port.write(data_bin)
+            try:
+                data_bin = bytes.fromhex(data_str)
+                self.serial_port.write(data_bin)
+            except ValueError:
+                print('\'' + data_str + '\' includes non-hexadecimal number')
 
 def serial_monitor_cli(interactive: bool = True):
     """
