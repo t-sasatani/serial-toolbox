@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "serial_toolbox"
-version = "0.1.3"
+version = "0.1.4"
 description = "Utility functions for pySerial"
 authors = ["Takuya Sasatani <33111879+t-sasatani@users.noreply.github.com>"]
 license = "Apache-2.0"
