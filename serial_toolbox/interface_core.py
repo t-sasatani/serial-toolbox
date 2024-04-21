@@ -58,7 +58,7 @@ class serial_interface:
         self.format = format
         self.thread.start()
 
-    def read_from_port(self, serial_port):
+    def read_from_port(self):
         """
         Continuously reads data from the serial port until stop_flag is set to True.
 
@@ -69,17 +69,17 @@ class serial_interface:
         """
         try:
             while not self.stop_flag:
-                if serial_port.in_waiting:
+                if self.serial_port.in_waiting:
                     if self.format == 'STR':
-                        line = serial_port.readline().decode('utf-8').strip()
+                        line = self.serial_port.readline().decode('utf-8').strip()
                         self.process_data(line)
                     elif self.format == 'HEX':
-                        raw_data = serial_port.readline()
+                        raw_data = self.serial_port.readline()
                         self.process_data(raw_data)
         except Exception as e:
             print(e)
             return
-        serial_port.close()
+        self.serial_port.close()
 
     def process_data(self, data):
         """
