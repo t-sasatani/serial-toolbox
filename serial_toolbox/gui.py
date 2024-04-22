@@ -5,6 +5,9 @@ import queue
 from .interface_core import serial_interface
 from .connect import port_manager
 
+import logging
+from .log_init import log_init
+
 class Application(ctk.CTk):
     """
     A Example tkinter application for serial communication.
@@ -135,7 +138,9 @@ def serial_monitor_gui():
     Start and run the customtkinter application. 
     This is the main entry point of the application that creates an instance of the Application class and executes the main loop.
     """
-    port_interface = port_manager.select_port(interactive=True, portname="serial monitor")
+    logger = log_init()
+
+    port_interface = port_manager.select_port(interactive=True, portname="serial monitor", logger=logger)
     format_input = input("format ('STR', 'HEX') ['STR'] >> ")
     if format_input.strip():
         format = format_input
@@ -145,6 +150,6 @@ def serial_monitor_gui():
     if not port_interface:
         return
     
-    target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=200, format=format)
+    target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=200, format=format, logger=logger)
     app = Application(target_serial_interface, plotting = (format == 'STR'))
     app.mainloop()

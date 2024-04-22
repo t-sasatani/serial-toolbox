@@ -3,6 +3,9 @@ import queue
 import time
 from .connect import port_manager
 
+import logging
+from .log_init import log_init
+
 class serial_interface:
     """
     Class for continuously reading from a serial port in a separate thread.
@@ -34,7 +37,7 @@ class serial_interface:
         Writes data to the serial port.
     """
 
-    def __init__(self, serial_port, terminal: bool = True, max_queue_size: int = 100, format: str = 'STR'):
+    def __init__(self, serial_port, terminal: bool = True, max_queue_size: int = 100, format: str = 'STR', logger: logging.Logger=None):
         """
         Parameters
         ----------
@@ -47,6 +50,9 @@ class serial_interface:
         format : str, optional
             TBD
         """
+        if logger is None:
+            logger = log_init()
+
         self.serial_port = serial_port
         self.thread = threading.Thread(target=self.read_from_port)
         self.thread.daemon = True
@@ -77,7 +83,7 @@ class serial_interface:
                         raw_data = self.serial_port.readline()
                         self.process_data(raw_data)
         except Exception as e:
-            print(e)
+            logging.ERROR(e)
             return
         self.serial_port.close()
 
@@ -102,6 +108,9 @@ class serial_interface:
         data : str
             The data read from the serial port.
         """
+
+        logging.info('RECV: ' + str(data))
+
         data_dict = {
             'index': self.data_index, 
             'time': time.time(), 
@@ -134,7 +143,9 @@ class serial_interface:
                 data_bin = bytes.fromhex(data_str)
                 self.serial_port.write(data_bin)
             except ValueError:
-                print('\'' + data_str + '\' includes non-hexadecimal number')
+                logging.WARNING('\'' + data_str + '\' includes non-hexadecimal number')
+
+        logging.info('SENT: ' + data_str)
 
 def serial_monitor_cli(interactive: bool = True):
     """
@@ -150,8 +161,11 @@ def serial_monitor_cli(interactive: bool = True):
     
     The thread is closed properly by setting its stop_flag to True and waiting for
     the thread to finish execution before returning from the function.    
-    """    
-    port = port_manager.select_port(interactive, portname="serial monitor")
+    """
+
+    logger = log_init()
+
+    port = port_manager.select_port(interactive, portname="serial monitor", logger=logger)
     if not port:
         return
     
@@ -161,15 +175,15 @@ def serial_monitor_cli(interactive: bool = True):
     else:
         format = 'STR'
     
-    interface = serial_interface(port, format)
+    interface = serial_interface(port, format, logger = logger)
 
-    print("\nSerial port monitor started. Press Ctrl+C to stop.\n")
+    logger.info('\nSerial port monitor started. Press Ctrl+C to stop.\n')
 
     try:
         while True: 
             pass
     except KeyboardInterrupt:
-        print("\nSerial port monitor stopping...\n")
+        logger.info('\nSerial port monitor stopping...\n')
         interface.stop_flag = True  
         interface.thread.join()
-        print("\nSerial port monitor stopped.\n")
+        logger.info('\nSerial port monitor stopped.\n')
