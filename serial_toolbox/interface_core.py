@@ -87,7 +87,7 @@ class serial_interface:
             return
         self.serial_port.close()
 
-    def print_queue(self):
+    def print_queue(self, restore_queue: bool = False):
         for _ in range(self.data_queue.qsize()):
             serial_data = self.data_queue.get()
 
@@ -96,8 +96,9 @@ class serial_interface:
 
             if self.format == 'STR':
                 print(str(serial_data['index']) + ': ' + serial_data['data'])
-        
-            self.data_queue.put(serial_data)
+
+            if restore_queue:
+                self.data_queue.put(serial_data)
             
     def process_data(self, data):
         """
