@@ -114,8 +114,8 @@ class Application(ctk.CTk):
                 if self.interface.format == 'HEX':
                     self.data_text.insert(0., "RXD: 0x" + data_dict['data'].hex() + "\n")
                 elif self.interface.format == 'STR':
-                    data_dict['data'] = data_dict['data'].decode('utf-8').strip()
-                    if data_dict['data'].decode('utf-8').strip().isdigit() and self.plotting == True:
+                    data_dict['data'] = data_dict['data'].strip()
+                    if data_dict['data'].strip().isdigit() and self.plotting:
                         self.plot_queue.put(data_dict) # pass down numbers to plot_queue
                     else:
                         self.data_text.insert(0., data_dict['data'] + "\n")
