@@ -103,11 +103,11 @@ class Application(ctk.CTk):
         This function re-plots the data from the serial interface, then schedules itself to be called again after 100 ms.
         This function is automatically triggered in the initialization of the Application class, implementing a regular update of the plot.
         """
+        window_size = 200
         data_queue_size = self.interface.data_queue.qsize()
         if data_queue_size > 0:
             self.plot.clear()
-            self.data_list = []  # Clear data_list in every iteration of update_plot
-
+            
             for _ in range(data_queue_size):
                 data_dict = self.interface.data_queue.get()
 
@@ -120,13 +120,15 @@ class Application(ctk.CTk):
                     else:
                         self.data_text.insert(0., data_dict['data'] + "\n")
 
+            # Append new data points to self.data_list and maintain only the latest window_size data points
             plot_queue_size = self.plot_queue.qsize()
             for _ in range(plot_queue_size):
                 data_dict = self.plot_queue.get()
                 self.data_list.append(float(data_dict['data']))  # Store individual data-points
-                self.plot_queue.put(data_dict)
+                if len(self.data_list) > window_size:
+                    self.data_list.pop(0)  # Remove oldest data point to keep size at window_size
             
-            # Outside of the loop, plot the entire data_list
+            # Plot the entire data_list which now contains at most window_size data points
             self.plot.plot(self.data_list)
             self.canvas.draw()
 
@@ -150,6 +152,6 @@ def serial_monitor_gui():
     if not port_interface:
         return
     
-    target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=200, format=format, logger=logger)
+    target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=10, format=format, logger=logger)
     app = Application(target_serial_interface, plotting = (format == 'STR'))
     app.mainloop()
