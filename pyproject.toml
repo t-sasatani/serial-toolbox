@@ -14,12 +14,11 @@ pyserial = "^3.5"
 coloredlogs = "^15.0.1"
 myst-parser = "^2.0.0"
 matplotlib = "^3.8.4"
-customtkinter = "^5.2.2"
+click = "^8.1.7"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-serial_monitor = "serial_toolbox.interface_core:serial_monitor_cli"
-serial_plotter = "serial_toolbox.gui:serial_monitor_gui"
+sertool = "serial_toolbox.gui:serial_monitor_cli"
