@@ -1,4 +1,4 @@
-.. serial-util documentation master file, created by
+.. serial-toolbox documentation master file, created by
    sphinx-quickstart on Fri Apr 12 19:32:44 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -6,8 +6,6 @@
 serial_toolbox package documentation
 ====================================
 
-Usage
------
 .. toctree::
    :maxdepth: 2
    :caption: Usage
@@ -15,17 +13,15 @@ Usage
    readme_link
    cli
 
-Contents
---------
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents
+   :maxdepth: 1
+   :caption: API
 
-   modules/connect
-   modules/interface_core
-   modules/ui
-   modules/models
-   modules/log_init
+   api/connect
+   api/interface_core
+   api/ui
+   api/models
+   api/log_init
 
 Features
 --------

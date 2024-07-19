@@ -1,146 +1,280 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<html  lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>serial_toolbox package documentation: &mdash; serial_toolbox 0.1.3 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=360bc84d"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+      <title>serial_toolbox package documentation</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script src="_static/documentation_options.js?v=59fadc99"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="How to use" href="readme_link.html" /> 
-</head>
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="How to use" href="readme_link.html" /> 
+  </head>
 
-          
-          
-          <a href="#" class="icon icon-home">
-            serial_toolbox
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html">How to use</a></li>
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html#scripts">Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connect.html">Connection module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gui.html">GUI module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_core.html">Serial interface core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_init.html">Logger setup module</a></li>
-</ul>
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="#" class="home-link">
+    
+      <span class="site-name">serial_toolbox</span>
+    
+  </router-link>
 
-        </div>
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="#serial-toolbox-package-documentation"
+         class="nav-link ">
+         Usage
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="#serial-toolbox-package-documentation"
+         class="nav-link ">
+         API
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
       </div>
-    </nav>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">serial_toolbox</a>
-      </nav>
+  
+    <div class="nav-item">
+      <a href="#serial-toolbox-package-documentation"
+         class="nav-link ">
+         Usage
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="#serial-toolbox-package-documentation"
+         class="nav-link ">
+         API
+      </a>
+    </div>
+  
 
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">serial_toolbox package documentation:</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#serial-toolbox-package-documentation">Usage</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="readme_link.html" class="reference internal ">How to use</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="cli.html" class="reference internal ">Command Line Interface</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#serial-toolbox-package-documentation">API</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api/connect.html" class="reference internal ">Connection</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api/interface_core.html" class="reference internal ">Serial interface core</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api/ui.html" class="reference internal ">UI module</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api/models.html" class="reference internal ">Models</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="api/log_init.html" class="reference internal ">Logger setup</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+    
+    <li>serial_toolbox package documentation</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="next">
+    <a href="readme_link.html"
+       title="next chapter">How to use →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
   <section id="serial-toolbox-package-documentation">
-<h1>serial_toolbox package documentation:<a class="headerlink" href="#serial-toolbox-package-documentation" title="Link to this heading"></a></h1>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Link to this heading"></a></h2>
+<h1>serial_toolbox package documentation<a class="headerlink" href="#serial-toolbox-package-documentation" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="readme_link.html">How to use</a></li>
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="readme_link.html#scripts">Scripts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="connect.html">Connection module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gui.html">GUI module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface_core.html">Serial interface core module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_init.html">Logger setup module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html#install">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme_link.html#pypi">PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme_link.html#poetry-for-development">Poetry (for development)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="readme_link.html#usage">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="readme_link.html#example-usage-as-a-python-module">Example usage as a python module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme_link.html#serial-i-o-like-arduino-ide">Serial I/O like Arduino IDE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command Line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#commands">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#monitor">Monitor</a></li>
+</ul>
+</li>
 </ul>
 </div>
-</section>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/connect.html">Connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/interface_core.html">Serial interface core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ui.html">UI module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/log_init.html">Logger setup</a></li>
+</ul>
+</div>
 <section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Interactively search and connect to serial ports</p></li>
 <li><p>Interfaces inspired by Arduino IDE’s serial monitor and plotter</p></li>
 </ul>
 </section>
 <section id="contributes">
-<h2>Contributes<a class="headerlink" href="#contributes" title="Link to this heading"></a></h2>
+<h2>Contributes<a class="headerlink" href="#contributes" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Issue Tracker: <a class="reference external" href="https://github.com/t-sasatani/serial-toolbox/issues">https://github.com/t-sasatani/serial-toolbox/issues</a></p></li>
 <li><p>Source Code: <a class="reference external" href="https://github.com/t-sasatani/serial-toolbox">https://github.com/t-sasatani/serial-toolbox</a></p></li>
 </ul>
 </section>
 <section id="license">
-<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<h2>License<a class="headerlink" href="#license" title="Link to this heading">¶</a></h2>
 <p>The project is licensed under Apache License, Version 2.0.</p>
 </section>
 </section>
 
 
-           </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="readme_link.html" class="btn btn-neutral float-right" title="How to use" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2024, Takuya Sasatani.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="next">
+    <a href="readme_link.html"
+       title="next chapter">How to use →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2024, Takuya Sasatani.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.6 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
 </html>

@@ -18,6 +18,8 @@ click = "^8.1.7"
 pyreadline3 = "^3.4.1"
 prompt-toolkit = "^3.0.47"
 pydantic = "^2.8.2"
+sphinx-click = "^6.0.0"
+sphinx-press-theme = "^0.9.1"
 
 [build-system]
 requires = ["poetry-core"]
