@@ -1,6 +1,7 @@
-Serial interface core module
+Serial interface core
 ====================================
 
 .. automodule:: serial_toolbox.interface_core
    :members:
-   :private-members:
+   :undoc-members:
+

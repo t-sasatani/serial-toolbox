@@ -40,31 +40,6 @@ class SerialMonitor(cmd.Cmd):
         Interactive session for the command prompt.
     animation : FuncAnimation, optional
         Animation instance for the plot.
-
-    Methods
-    -------
-    on_close_plot(event)
-        Handle the plot window being closed.
-    rxd_update()
-        Continuously update received data.
-    is_comma_separated_numbers(data_str)
-        Check if the given string is a comma-separated string of numbers.
-    update_traces(values)
-        Update the traces with new values.
-    update_plot(frame)
-        Update the plot with the received data.
-    print_rxd()
-        Print the received data without interrupting the CLI.
-    do_send(arg)
-        Send a command via the serial interface.
-    do_exit(arg)
-        Exit the serial monitor.
-    cmdloop(intro=None)
-        A replacement for the standard cmdloop with additional processing.
-    preloop()
-        Hook method executed once when the cmdloop method is called.
-    postloop()
-        Hook method executed once when the cmdloop method is about to return.
     """
 
     doc_header = 'Commands (type help <command> for details):'

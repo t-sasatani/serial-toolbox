@@ -1,6 +1,6 @@
-Connection module
+Connection
 ==================
 
 .. automodule:: serial_toolbox.connect
    :members:
-   :private-members:
+   :undoc-members:
