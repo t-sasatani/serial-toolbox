@@ -15,10 +15,12 @@ coloredlogs = "^15.0.1"
 myst-parser = "^2.0.0"
 matplotlib = "^3.8.4"
 click = "^8.1.7"
+pyreadline3 = "^3.4.1"
+prompt-toolkit = "^3.0.47"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-sertool = "serial_toolbox.gui:serial_monitor_cli"
+sertool = "serial_toolbox.gui:serial_monitor"

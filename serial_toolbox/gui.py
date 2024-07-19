@@ -2,8 +2,6 @@ import threading
 import time
 import queue
 import cmd
-import readline  # or for Windows: from pyreadline import Readline
-import logging
 import sys
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -11,12 +9,16 @@ from .interface_core import serial_interface
 from .connect import port_manager
 from .log_init import log_init
 
+from prompt_toolkit import PromptSession
+from prompt_toolkit.patch_stdout import patch_stdout
+
 class SerialMonitor(cmd.Cmd):
-    intro = 'Welcome to the Serial Monitor. Type help or ? to list commands.\n'
-    prompt = '(serial monitor) '
+    intro = 'Type help or ? to list commands.\n'
+    prompt = '(sertools) '
 
     def __init__(self, interface, plotting=True, print_numbers=False):
         super().__init__()
+        self.running = True  # Initialize running before starting threads
         self.interface = interface
         self.plotting = plotting
         self.print_numbers = print_numbers  # Flag to control numeric data printing
@@ -28,14 +30,15 @@ class SerialMonitor(cmd.Cmd):
         self.print_queue = queue.Queue()
         self.window_size = 200
 
+        # Initialize prompt_toolkit session
+        self.session = PromptSession()
+
+        # Plot initialization must be done in the main thread
         if self.plotting:
             self.figure, self.ax = plt.subplots()
-            self.animation = FuncAnimation(self.figure, self.update_plot, interval=100)
-            plt.ion()  # Turn on interactive mode
-            self.figure.show()
+            self.animation = FuncAnimation(self.figure, self.update_plot, interval=100, cache_frame_data=False)
 
         # Start the RXD update thread
-        self.running = True
         self.update_thread = threading.Thread(target=self.rxd_update)
         self.update_thread.daemon = True
         self.update_thread.start()
@@ -44,6 +47,10 @@ class SerialMonitor(cmd.Cmd):
         self.print_thread = threading.Thread(target=self.print_rxd)
         self.print_thread.daemon = True
         self.print_thread.start()
+
+    def run_cmdloop(self):
+        """Run the command loop."""
+        self.cmdloop()
 
     def rxd_update(self):
         """ Continuously update received data. """
@@ -65,7 +72,7 @@ class SerialMonitor(cmd.Cmd):
                                 self.print_queue.put("RXD: " + data_dict['data'])
                         else:
                             self.print_queue.put("RXD: " + data_dict['data'])
-            time.sleep(0.1)
+            time.sleep(0.01)
 
     def is_comma_separated_numbers(self, data_str):
         """ Check if the given string is a comma-separated string of numbers. """
@@ -103,18 +110,9 @@ class SerialMonitor(cmd.Cmd):
         while self.running:
             try:
                 message = self.print_queue.get_nowait()
-                # Save the current prompt line
-                current_input = readline.get_line_buffer()
-                saved_line_pos = readline.get_begidx()
-                # Clear the prompt line
-                sys.stdout.write('\r' + ' ' * (len(self.prompt) + len(current_input)) + '\r')
-                sys.stdout.flush()
-                # Print the new message
-                print(message)
-                # Restore the prompt line
-                sys.stdout.write(self.prompt + current_input)
-                sys.stdout.flush()
-                readline.redisplay()
+                # Use prompt_toolkit to print the message without breaking the prompt
+                with patch_stdout():
+                    print(message)
             except queue.Empty:
                 pass
             time.sleep(0.1)
@@ -137,7 +135,7 @@ class SerialMonitor(cmd.Cmd):
     def do_plot(self, arg):
         "Show the plot window"
         if self.plotting:
-            plt.show()
+            plt.show(block=False)
 
     def do_exit(self, arg):
         "Exit the serial monitor"
@@ -152,18 +150,19 @@ class SerialMonitor(cmd.Cmd):
             self.intro = intro
         if self.intro:
             self.stdout.write(str(self.intro) + "\n")
-        stop = None
+
         while self.running:
-            if self.cmdqueue:
-                line = self.cmdqueue.pop(0)
-            else:
-                line = input(self.prompt)
+            # Use prompt_toolkit's session to get input
             try:
-                stop = self.onecmd(line)
-            except Exception as e:
-                print('Exception:', e)
-            if stop:
+                with patch_stdout():
+                    line = self.session.prompt(self.prompt)
+                if line.strip():
+                    self.onecmd(line)
+            except (KeyboardInterrupt, EOFError):
+                print('Exiting Serial Monitor.')
+                self.running = False
                 break
+
         self.postloop()  # Hook before exiting
     
     def preloop(self):
@@ -174,7 +173,7 @@ class SerialMonitor(cmd.Cmd):
         """Hook method executed once when the cmdloop() method is about to return."""
         self.running = False
 
-def serial_monitor_cli():
+def serial_monitor():
     """
     Start and run the CLI application. 
     This is the main entry point of the application that creates an instance of the SerialMonitor class and runs the cmd loop.
@@ -192,7 +191,19 @@ def serial_monitor_cli():
         return
     
     target_serial_interface = serial_interface(port_interface, terminal=False, max_queue_size=10, format=format, logger=logger)
-    SerialMonitor(target_serial_interface, plotting=(format == 'STR'), print_numbers=print_numbers).cmdloop()
+    serial_monitor = SerialMonitor(target_serial_interface, plotting=(format == 'STR'), print_numbers=print_numbers)
+    
+    # Start the command loop in its own thread
+    cmd_thread = threading.Thread(target=serial_monitor.run_cmdloop)
+    cmd_thread.start()
+    
+    # Start the main loop to keep plot active
+    while serial_monitor.running:
+        plt.pause(0.1)
+        time.sleep(0.1)
+
+    # Ensure the command loop thread exits cleanly
+    cmd_thread.join()
 
 if __name__ == "__main__":
-    serial_monitor_cli()
+    serial_monitor()
