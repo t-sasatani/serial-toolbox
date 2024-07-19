@@ -1,7 +1,8 @@
-import serial
-from serial.tools import list_ports
+import threading
 import time
 import logging
+import serial
+from serial.tools import list_ports
 
 from .log_init import log_init
 
@@ -11,8 +12,8 @@ class port_manager:
     """
     
     @classmethod
-    def select_port(cls, interactive: bool=False, portname: str=None, baudrate: int=9600, timeout: float=0.1,
-                    logger: logging.Logger=None) -> serial.Serial:
+    def select_port(cls, interactive: bool = False, portname: str = None, baudrate: int = 9600, timeout: float = 0.1,
+                    logger: logging.Logger = None) -> serial.Serial:
         """
         Class method for selecting the port for serial communication.
         
@@ -40,18 +41,18 @@ class port_manager:
         ser = serial.Serial()
         
         if portname:
-            print("Setup port (" + portname + "). [] is default value.")
+            logger.info("Setup port (%s). [] is default value.", portname)
         else:
-            print("Setup port. [] is default value.")
+            logger.info("Setup port. [] is default value.")
 
         if interactive:
-            baudrate_input = input("baudrate [" + str(baudrate) + "] >> ")
+            baudrate_input = input(f"baudrate [{baudrate}] >> ")
             if baudrate_input.strip():
                 baudrate = int(baudrate_input)
-            timeout_input = input("timeout [" + str(timeout) + "] >> ")
+            timeout_input = input(f"timeout [{timeout}] >> ")
             if timeout_input.strip():
                 timeout = float(timeout_input)  # convert input to float
-            print("======================")
+            logger.info("======================")
                 
         ser.baudrate = baudrate
         ser.timeout = timeout
@@ -60,34 +61,36 @@ class port_manager:
         devices = [info.device for info in ports]
 
         if len(devices) > 0:
-            ser.port = cls._user_serial_select(devices=devices)
+            ser.port = cls._user_serial_select(devices, logger)
         else:
-            print("device not found")
+            logger.error("Device not found")
             return None
 
-        cls._reset_serial(ser=ser, logger=logger)
-        return cls._open_serial(ser=ser, logger=logger)
+        cls._reset_serial(ser, logger)
+        return cls._open_serial(ser, logger)
 
     @classmethod
-    def _user_serial_select(cls, devices):
+    def _user_serial_select(cls, devices, logger):
         """
         Class method for selecting a serial port from a user input.
 
         Parameters
         ----------
-        devices : List[str]
+        devices : list[str]
             The list of all available serial ports.
+        logger : logging.Logger
+            The logger object.
 
         Returns
         -------
         str
             The selected serial port.
         """
-        print(f"index\t|  device")
-        print("----------------------")
+        logger.info("index\t|  device")
+        logger.info("----------------------")
 
         for i, device in enumerate(devices):
-            print(f"{i:2d}\t|  {device}")
+            logger.info("%2d\t|  %s", i, device)
         time.sleep(0.1)
         
         while True:
@@ -98,7 +101,7 @@ class port_manager:
                     port_index = int(port_index_input)
                 return devices[port_index]
             except (ValueError, IndexError):
-                print('Invalid input. Please enter a number corresponding to a device.')
+                logger.error('Invalid input. Please enter a number corresponding to a device.')
         
     @classmethod
     def _open_serial(cls, ser: serial.Serial, logger: logging.Logger) -> serial.Serial:
@@ -107,22 +110,22 @@ class port_manager:
 
         Parameters
         ----------
-        ser : Serial
+        ser : serial.Serial
             The serial object on which to open the port.
         logger : logging.Logger
             The logger object.
 
         Returns
         -------
-        Serial
+        serial.Serial
             The opened serial object if any, else None.
         """
         try:
             ser.open()
-            logger.info('Port opened: %s' % ser.port)
+            logger.info('Port opened: %s', ser.port)
             return ser
         except Exception as e:
-            print(e)
+            logger.error("Error opening port: %s", e)
             return None
 
     @classmethod
@@ -132,7 +135,7 @@ class port_manager:
 
         Parameters
         ----------
-        ser : Serial
+        ser : serial.Serial
             The serial object to reset.
         logger : logging.Logger
             The logger object.

@@ -1,0 +1,6 @@
+baudrate: 57600
+timeout: 0.1
+format: 'STR'
+plotting: True
+print_numbers: False
+window_size: 200
