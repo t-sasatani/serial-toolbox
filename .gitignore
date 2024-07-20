@@ -20,4 +20,5 @@
 
 log/*
 
+# Ignore Sphinx documentation build directories
 docs/build/*
