@@ -1,16 +1,30 @@
-.. serial-toolbox documentation master file, created by
-   sphinx-quickstart on Fri Apr 12 19:32:44 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 serial_toolbox package documentation
 ====================================
 
+.. note::
+
+   Python package for making serial connection easier. This project is still at very early development stages and not guaranteed to work. Available features are listed in the follows.
+
+Features
+--------
+- Interactively search and connect to serial ports
+- Hexadecimal I/O
+- Serial monitor/plotter with logging features and flexibility
+- Modules that wrap asyncronous serial data reception and provide easy-to-use interfaces
+
+Resources
+----------------
+
+- `Docs <https://serial-toolbox.readthedocs.io>`__
+- `Github <https://github.com/t-sasatani/serial-toolbox>`__
+- `PyPI <https://pypi.org/project/serial_toolbox/>`__
+
 .. toctree::
    :maxdepth: 2
-   :caption: Usage
+   :caption: Guide
 
-   readme_link
+   installation
+   usage
    cli
 
 .. toctree::
@@ -22,11 +36,6 @@ serial_toolbox package documentation
    api/ui
    api/models
    api/log_init
-
-Features
---------
-- Interactively search and connect to serial ports
-- Interfaces inspired by Arduino IDE's serial monitor and plotter
 
 Contributes
 -----------
