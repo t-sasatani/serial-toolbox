@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "serial_toolbox"
-version = "0.1.4"
+version = "0.1.5"
 description = "Utility functions for pySerial"
 authors = ["Takuya Sasatani <33111879+t-sasatani@users.noreply.github.com>"]
 license = "Apache-2.0"
@@ -14,12 +14,16 @@ pyserial = "^3.5"
 coloredlogs = "^15.0.1"
 myst-parser = "^2.0.0"
 matplotlib = "^3.8.4"
-customtkinter = "^5.2.2"
+click = "^8.1.7"
+pyreadline3 = "^3.4.1"
+prompt-toolkit = "^3.0.47"
+pydantic = "^2.8.2"
+sphinx-click = "^6.0.0"
+sphinx-press-theme = "^0.9.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-serial_monitor = "serial_toolbox.interface_core:serial_monitor_cli"
-serial_plotter = "serial_toolbox.gui:serial_monitor_gui"
+sertools = "serial_toolbox.cli:main"

@@ -19,3 +19,6 @@
 /poetry.toml
 
 log/*
+
+# Ignore Sphinx documentation build directories
+docs/build/*

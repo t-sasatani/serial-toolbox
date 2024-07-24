@@ -1,35 +1,40 @@
 from datetime import datetime
-import logging, coloredlogs, sys
+import logging
+import coloredlogs
+import sys
 import os
 
 def log_init(file_log: bool = True, console_log_level: int = logging.WARNING, file_log_level: int = logging.INFO):
     """
-    Function to initialize the logger. Sets up the logger to output different log level
+    Function to initialize the logger. Sets up the logger to output different log levels
     to stdout and a log file.
 
     Parameters
     ----------
     file_log : bool, optional
-        Determine whether to output log to a file, by default False
+        Determine whether to output log to a file, by default True.
     console_log_level : int, optional
-        The logging level for console output, by default logging.INFO
+        The logging level for console output, by default logging.WARNING.
     file_log_level : int, optional
-        The logging level for file output, by default logging.ERROR
+        The logging level for file output, by default logging.INFO.
 
     Returns
     -------
     logging.RootLogger
         The initialized logger.
     """
+    # Create and configure root logger
     logger = logging.getLogger()
+    logger.handlers = []  # Clearing existing handlers
+    logger.propagate = False  # Ensuring that logs don't propagate to avoid duplication
+
+    log_levels = [console_log_level]
 
     # Console handler
     handler_console = logging.StreamHandler(sys.stdout)
     handler_console.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', datefmt='%Y/%m/%d %H:%M:%S'))
     handler_console.setLevel(console_log_level)
     logger.addHandler(handler_console)
-
-    log_levels = [console_log_level]
 
     # File handler
     if file_log:
@@ -50,6 +55,8 @@ def log_init(file_log: bool = True, console_log_level: int = logging.WARNING, fi
 
     logger.setLevel(min(log_levels))
 
+    # Enable colored logs for console output
     coloredlogs.install(level=console_log_level, logger=logger)
-    logger.info("logger setup done.")
+
+    logger.info("Logger setup done.")
     return logger

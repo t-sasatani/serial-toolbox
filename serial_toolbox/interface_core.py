@@ -26,15 +26,6 @@ class serial_interface:
         A counter for received data.
     max_queue_size : int
         Maximum size for the data_queue.
-
-    Methods
-    -------
-    read_from_port(serial_port)
-        Continuously reads data from the serial port.
-    process_data(data)
-        Processes incoming data and add to the queue.
-    write_to_port(data)
-        Writes data to the serial port.
     """
 
     def __init__(self, serial_port, terminal: bool = True, max_queue_size: int = 100, format: str = 'STR', logger: logging.Logger=None):
