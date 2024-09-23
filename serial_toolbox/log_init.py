@@ -1,8 +1,9 @@
-from datetime import datetime
 import logging
 import coloredlogs
 import sys
 import os
+from datetime import datetime
+from pathlib import Path
 
 def log_init(file_log: bool = True, console_log_level: int = logging.WARNING, file_log_level: int = logging.INFO):
     """
@@ -20,39 +21,42 @@ def log_init(file_log: bool = True, console_log_level: int = logging.WARNING, fi
 
     Returns
     -------
-    logging.RootLogger
+    logging.Logger
         The initialized logger.
     """
-    # Create and configure root logger
-    logger = logging.getLogger()
-    logger.handlers = []  # Clearing existing handlers
-    logger.propagate = False  # Ensuring that logs don't propagate to avoid duplication
+    # Create and configure the logger
+    logger = logging.getLogger("CustomLogger")
+    # Clear existing handlers if any
+    if logger.hasHandlers():
+        logger.handlers.clear()
+    logger.propagate = False
 
     log_levels = [console_log_level]
 
+    formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
+
     # Console handler
     handler_console = logging.StreamHandler(sys.stdout)
-    handler_console.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', datefmt='%Y/%m/%d %H:%M:%S'))
+    handler_console.setFormatter(formatter)
     handler_console.setLevel(console_log_level)
     logger.addHandler(handler_console)
 
     # File handler
     if file_log:
-        # Create a ./log directory if not exists
-        if not os.path.exists('./log'):
-            os.makedirs('./log')
+        log_dir = Path('./log')
+        log_dir.mkdir(parents=True, exist_ok=True)
 
-        # Gets current datetime and format it as filename format
-        date_str = datetime.now().strftime("serial%Y%m%d%H%M.log")
-        log_file_path = os.path.join('./log', date_str)
+        # Generate log file name with current date and time
+        log_file_path = log_dir / datetime.now().strftime("serial%Y%m%d%H%M.log")
 
         handler_file = logging.FileHandler(log_file_path)
-        handler_file.setFormatter(logging.Formatter('%(asctime)s : %(levelname)s : %(message)s', datefmt='%Y/%m/%d %H:%M:%S'))
+        handler_file.setFormatter(formatter)
         handler_file.setLevel(file_log_level)
         logger.addHandler(handler_file)
 
         log_levels.append(file_log_level)
 
+    # Set the logger's level to the lowest log level
     logger.setLevel(min(log_levels))
 
     # Enable colored logs for console output
@@ -60,3 +64,12 @@ def log_init(file_log: bool = True, console_log_level: int = logging.WARNING, fi
 
     logger.info("Logger setup done.")
     return logger
+
+# Example usage
+if __name__ == "__main__":
+    logger = log_init()
+    logger.debug("This is a debug message")
+    logger.info("This is an info message")
+    logger.warning("This is a warning message")
+    logger.error("This is an error message")
+    logger.critical("This is a critical message")

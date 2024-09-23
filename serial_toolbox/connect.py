@@ -1,4 +1,3 @@
-import threading
 import time
 import logging
 import serial
@@ -12,8 +11,13 @@ class port_manager:
     """
     
     @classmethod
-    def select_port(cls, interactive: bool = False, portname: str = None, baudrate: int = 9600, timeout: float = 0.1,
-                    logger: logging.Logger = None) -> serial.Serial:
+    def select_port(cls,
+                    interactive: bool = False,
+                    portname: str = None,
+                    baudrate: int = 9600,
+                    timeout: float = 0.1,
+                    logger: logging.Logger = None
+                    ) -> serial.Serial:
         """
         Class method for selecting the port for serial communication.
         

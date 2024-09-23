@@ -1,6 +1,6 @@
-baudrate: 57600
+baudrate: 9600
 timeout: 0.1
-format: 'STR'
+format: 'HEX'
 plotting: True
 print_numbers: False
 window_size: 200
