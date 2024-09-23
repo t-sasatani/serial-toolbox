@@ -25,7 +25,7 @@ def log_init(file_log: bool = True, console_log_level: int = logging.WARNING, fi
         The initialized logger.
     """
     # Create and configure the logger
-    logger = logging.getLogger("CustomLogger")
+    logger = logging.getLogger(__name__)
     # Clear existing handlers if any
     if logger.hasHandlers():
         logger.handlers.clear()
