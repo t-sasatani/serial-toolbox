@@ -116,7 +116,7 @@ class serial_interface:
         """
         string_list = self.get_queue(restore_queue)
         for string in string_list:
-            print(string)
+            print(str(string[0]) + ': ' + string[1])
 
     def process_data(self, data):
         """
