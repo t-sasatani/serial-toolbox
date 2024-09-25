@@ -94,7 +94,7 @@ class port_manager:
         print("----------------------")
 
         for i, device in enumerate(devices):
-            print("%2d\t|  %s", i, device)
+            print(f"{i:2d}\t|  {device}")
         time.sleep(0.1)
         
         while True:
