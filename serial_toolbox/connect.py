@@ -90,11 +90,11 @@ class port_manager:
         str
             The selected serial port.
         """
-        logger.info("index\t|  device")
-        logger.info("----------------------")
+        print("index\t|  device")
+        print("----------------------")
 
         for i, device in enumerate(devices):
-            logger.info("%2d\t|  %s", i, device)
+            print("%2d\t|  %s", i, device)
         time.sleep(0.1)
         
         while True:
