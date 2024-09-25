@@ -78,19 +78,46 @@ class serial_interface:
             return
         self.serial_port.close()
 
-    def print_queue(self, restore_queue: bool = False):
+    def get_queue(self, restore_queue: bool = False):
+        """
+        Returns the data_queue.
+
+        Parameters
+        ----------
+        restore_queue : bool, optional
+            If True, the queue is restored to its original state after returning. Defaults to False.
+
+        Returns
+        -------
+        queue.Queue
+            The data_queue.
+        """
+        string_list = []
+
         for _ in range(self.data_queue.qsize()):
             serial_data = self.data_queue.get()
-
+            
             if self.format == 'HEX':
-                print(str(serial_data['index']) + ': ' + str(serial_data['data'].hex()))
-
+                string_list.append([int(serial_data['index']), str(serial_data['data'].hex())])
             if self.format == 'STR':
-                print(str(serial_data['index']) + ': ' + serial_data['data'])
-
+                string_list.append([int(serial_data['index']), serial_data['data']])
             if restore_queue:
                 self.data_queue.put(serial_data)
+        return string_list
             
+    def print_queue(self, restore_queue: bool = False):
+        """
+        Prints the data_queue.
+
+        Parameters
+        ----------
+        restore_queue : bool, optional
+            If True, the queue is restored to its original state after returning. Defaults to False.
+        """
+        string_list = self.get_queue(restore_queue)
+        for string in string_list:
+            print(string)
+
     def process_data(self, data):
         """
         Processes incoming data by adding the data to the data_queue.
